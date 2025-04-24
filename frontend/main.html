@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>云盘前端</title>
+</head>
+<body>
+  <h1>上传文件</h1>
+  <form action="http://localhost:3000/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <button>上传</button>
+  </form>
+  <h2>文件列表</h2>
+  <ul id="list"></ul>
+  <script>
+    fetch('http://localhost:3000/files')
+      .then(res => res.json())
+      .then(files => {
+        const list = document.getElementById('list');
+        files.forEach(file => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="http://localhost:3000/download/${file}">${file}</a>`;
+          list.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
